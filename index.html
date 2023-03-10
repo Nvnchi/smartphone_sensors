@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone sensors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Music App</h1>
+    <audio id="music-player" src="your-music.mp3"></audio>
+    <button id="play-pause-button">Play/Pause</button>
+    <audio id="music-player" src="your-music.mp3"></audio>
+    <script>
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", function (event) {
+          // Handle the device orientation changes here
+        });
+      } else {
+        console.log("Device orientation not supported");
+      }
+      
+      var musicPlayer = document.getElementById("music-player");
+      var playPauseButton = document.getElementById("play-pause-button");
+      var isPlaying = false;
+
+      playPauseButton.addEventListener("click", function () {
+        if (isPlaying) {
+          musicPlayer.pause();
+          isPlaying = false;
+          playPauseButton.innerHTML = "Play";
+        } else {
+          musicPlayer.play();
+          isPlaying = true;
+          playPauseButton.innerHTML = "Pause";
+        }
+      });
+
+      if (window.DeviceOrientationEvent) {
+        var sensitivity = 20;
+        var lastAcceleration = { x: 0, y: 0, z: 0 };
+
+        window.addEventListener("deviceorientation", function (event) {
+          var acceleration = event.accelerationIncludingGravity;
+
+          if (
+            Math.abs(acceleration.x - lastAcceleration.x) > sensitivity ||
+            Math.abs(acceleration.y - lastAcceleration.y) > sensitivity ||
+            Math.abs(acceleration.z - lastAcceleration.z) > sensitivity
+          ) {
+            // The phone was shaken, skip to the next song
+            musicPlayer.currentTime = musicPlayer.duration;
+            musicPlayer.play();
+          }
+
+          lastAcceleration = acceleration;
+        });
+      } else {
+        console.log("Device orientation not supported");
+      }
+    </script>
+  </body>
+</html>

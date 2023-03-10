@@ -9,9 +9,13 @@
 </head>
 <body>
     <div id="game">
+        <button id="start-game-button">Start Game</button>
         <div id="character"></div>
-    <script>
-     window.addEventListener('deviceorientation', handleOrientation);
+<script>
+const startGameButton = document.getElementById('start-game-button');
+
+startGameButton.addEventListener('click', function() {
+window.addEventListener('deviceorientation', handleOrientation);
 
 function handleOrientation(event) {
   var x = event.beta;  // beta is the value for tilting front-to-back
@@ -22,6 +26,14 @@ function handleOrientation(event) {
   character.style.left = (50 + (y / 5)) + '%';
   character.style.top = (50 + (x / 5)) + '%';
 }
-    </script>
-  </body>
+
+if ('DeviceOrientationEvent' in window) {
+  console.log('DeviceOrientation is supported');
+} else {
+  console.log('DeviceOrientation is not supported');
+}
+});
+
+</script>
+</body>
 </html>

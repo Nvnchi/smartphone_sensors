@@ -8,13 +8,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game">
-        <button id="start-game-button">Start Game</button>
-        <div id="character"></div>
+    <h1 id="title">Probeer je telefoon te bewegen. Je kunt hem naar alle kanten doen!</h1>
+        <div id="character">
+            <p id="text">Hier ben ik!</p>
+        </div>
 <script>
-const startGameButton = document.getElementById('start-game-button');
-
-startGameButton.addEventListener('click', function() {
 window.addEventListener('deviceorientation', handleOrientation);
 
 function handleOrientation(event) {
@@ -32,7 +30,6 @@ if ('DeviceOrientationEvent' in window) {
 } else {
   console.log('DeviceOrientation is not supported');
 }
-});
 
 </script>
 </body>
